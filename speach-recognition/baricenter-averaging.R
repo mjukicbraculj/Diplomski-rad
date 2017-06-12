@@ -23,7 +23,7 @@ for(word in words){
   
   average = DBA(mfccs)
   
-  filename = paste(directory, "/", word, "_average.txt", sep="")
+  filename = paste(directory, "/", word, "_average1.txt", sep="")
   
   print(filename)
   
