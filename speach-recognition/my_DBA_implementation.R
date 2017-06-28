@@ -13,8 +13,8 @@ myDBA = function(time_series, number_of_steps=100){
       for(index in 1:length(time_series)){
         current = time_series[[index]][, mfcc_index]
         
-        result = dtw_basic(C, current, backtrack=TRUE)
-    
+        result = dtw_basic(C, current, backtrack=TRUE, window.size = 5)
+        #print(result)
         #print(result$index1)
         #print(result$index2)
         # print(current)
@@ -41,7 +41,8 @@ myDBA = function(time_series, number_of_steps=100){
 }
 
 
-words = list("nula")#, "jedan", "dva", "tri", "cetiri", "pet", "sest", "sedam", "osam", "devet", "plus", "minus", "puta", "dijeljeno", "jednako")
+words = list("nula", "jedan", "dva", "tri", "cetiri", "pet", "sest", "sedam", "osam", "devet", "plus", "minus", "puta", "dijeljeno", "jednako")
+elapsed_time = 0
 
 for(word in words){
   path = 'C:/Users/Mira/Documents/DIPLOMSKI RAD - ALGORITAM PORAVNANJA VREMENSKIH NIZOVA/speach-recognition/Dataset/Train/'
@@ -61,7 +62,12 @@ for(word in words){
     i = i + 1
   }
 
+  start.time <- Sys.time()
   average = myDBA(mfccs)
+  end.time <- Sys.time()
+  time.taken <- end.time - start.time
+  print(time.taken)
+  elapsed_time = elapsed_time + time.taken
   # print(average)
   
   filename = paste(directory, "/", word, "_averageMY.txt", sep="")
@@ -71,3 +77,4 @@ for(word in words){
   #print(average)
   write.table(average, file=filename, row.names=FALSE, col.names=FALSE, sep=" ")
 }
+print(elapsed_time)
